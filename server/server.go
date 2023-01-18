@@ -1,18 +1,31 @@
-package main
+package server
 
 import (
-	"fmt"
-	"log"
-
+	"github.com/gin-gonic/gin"
 	"github.com/jjimgo/go_gin_mysql/config"
 )
 
-func main () {
-	config, err := config.LoadConfig("../")
+type Server struct {
+	config config.Config
+	router *gin.Engine
+}
 
-	if err != nil{
-		log.Fatal("connect load config", err)
-	}
 
-	fmt.Println(config.ServerAddress)
+func NewServer(config config.Config) (*Server, error) {
+	// config, err := config.LoadConfig("../")
+
+	server := &Server{config : config}
+	server.setUpRouter()
+
+	return server, nil
+}
+
+func (server *Server) setUpRouter() {
+	router:= gin.Default()
+
+	server.router = router
+}
+
+func (server *Server) Start(address string) error {
+	return server.router.Run(address)
 }
