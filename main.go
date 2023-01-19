@@ -7,7 +7,6 @@ import (
 	"github.com/jjimgo/go_gin_mysql/server"
 )
 
-
 func main () {
 	config, err := config.LoadConfig(".")
 

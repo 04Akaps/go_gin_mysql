@@ -21,26 +21,25 @@ func NewServer(config config.Config) (*Server, error) {
 
 func (server *Server) setUpRouter() {
 	router:= gin.Default()
+
+	setTestRoute(router)
 	server.router = router
+}
+
+func setUserRoute(router *gin.Engine) {
+
+}
+
+func setTxRoute(router *gin.Engine) {
+	
 }
 
 func setTestRoute(router *gin.Engine) {
 	testRoutes := router.Group("/test")
 
-	testRoutes.GET("/getTestHello", func(ctx *gin.Context) {
-		controllers.GetTestHello(ctx)
-	})
-
-
-	testRoutes.GET("/getTest", func(ctx *gin.Context) {
-		controllers.GetTest(ctx)
-	})
-
-	testRoutes.POST("/makeTest", func(ctx *gin.Context) {
-		controllers.CreateTest(ctx)
-	})
-
-
+	testRoutes.GET("/getTestHello", controllers.GetTestHello)
+	testRoutes.GET("/getTest",controllers.GetTest)
+	testRoutes.POST("/makeTest", controllers.CreateTest)
 }
 
 func (server *Server) Start(address string) error {

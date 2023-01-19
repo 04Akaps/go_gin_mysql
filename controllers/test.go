@@ -12,10 +12,15 @@ type Test struct {
 	Num		int64		`json:"num"`
 }
 
+type Hello struct {
+	Hello 	string 		`json:"hello"`
+}
+
 var newTestArea = []Test{
 	{Name: "hojin", Num: 3},
 	{Name: "hojin-2", Num: 4},
 }
+
 
 func CreateTest(ctx *gin.Context) {
 	var newTest Test
@@ -25,13 +30,13 @@ func CreateTest(ctx *gin.Context) {
 
 	newTestArea = append(newTestArea, newTest);
 	
-	ctx.JSON(http.StatusOK, newTest)
+	ctx.IndentedJSON(http.StatusOK, newTest)
 }
 
 func GetTest(ctx *gin.Context) {
-	ctx.JSON(http.StatusOK, newTestArea)
+	ctx.IndentedJSON(http.StatusOK, newTestArea)
 }
 
-func GetTestHello(ctx *gin.Context) gin.H{ 
-	return gin.H{"message" : "testHello"}
+func GetTestHello(ctx *gin.Context) { 
+	ctx.JSON(http.StatusOK, "hello")
 }
