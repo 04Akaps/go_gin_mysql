@@ -12,10 +12,6 @@ type Test struct {
 	Num		int64		`json:"num"`
 }
 
-type Hello struct {
-	Hello 	string 		`json:"hello"`
-}
-
 var newTestArea = []Test{
 	{Name: "hojin", Num: 3},
 	{Name: "hojin-2", Num: 4},
