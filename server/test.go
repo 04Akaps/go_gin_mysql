@@ -1,4 +1,4 @@
-package controllers
+package server
 
 import (
 	"net/http"
@@ -18,7 +18,7 @@ var newTestArea = []Test{
 }
 
 
-func CreateTest(ctx *gin.Context) {
+func (server *Server) createTest(ctx *gin.Context) {
 	var newTest Test
 	if err := ctx.ShouldBindJSON(&newTest); err != nil {
 		ctx.JSON(http.StatusBadRequest, e.ErrorResponse(err))
@@ -29,10 +29,10 @@ func CreateTest(ctx *gin.Context) {
 	ctx.IndentedJSON(http.StatusOK, newTest)
 }
 
-func GetTest(ctx *gin.Context) {
+func (server *Server) getTest(ctx *gin.Context) {
 	ctx.IndentedJSON(http.StatusOK, newTestArea)
 }
 
-func GetTestHello(ctx *gin.Context) { 
+func (server *Server) getTestHello(ctx *gin.Context) { 
 	ctx.JSON(http.StatusOK, "hello")
 }

@@ -3,7 +3,6 @@ package server
 import (
 	"github.com/gin-gonic/gin"
 	"github.com/jjimgo/go_gin_mysql/config"
-	"github.com/jjimgo/go_gin_mysql/controllers"
 	"github.com/jjimgo/go_gin_mysql/db"
 	sqlc "github.com/jjimgo/go_gin_mysql/db/sqlc"
 )
@@ -27,14 +26,14 @@ func NewServer(config config.Config) (*Server, error) {
 func (server *Server) setUpRouter() {
 	router:= gin.Default()
 
-	setTestRoute(router) // sample Test Router
-	setUserRoute(router) // sample User Router
-	setDiaryRoute(router) // sample Tx Router
+	server.setTestRoute(router) // sample Test Router
+	server.setUserRoute(router) // sample User Router
+	server.setDiaryRoute(router) // sample Tx Router
 
 	server.router = router
 }
 
-func setDiaryRoute(router *gin.Engine) {
+func (server *Server)  setDiaryRoute(router *gin.Engine) {
 	diary := router.Group("/diary")
 
 	diary.GET("/getDiary")
@@ -42,22 +41,21 @@ func setDiaryRoute(router *gin.Engine) {
 	diary.DELETE("/deleteDiary")
 }
 
-func setUserRoute(router *gin.Engine) {
+func (server *Server) setUserRoute(router *gin.Engine) {
 	userRoutes := router.Group("/user")
 
-	userRoutes.GET("/getUser")
-	userRoutes.GET("/getUsers")
-	userRoutes.POST("/createUser")
-	userRoutes.DELETE("/deleteUser")
+	userRoutes.GET("/getUser", server.getUser)
+	userRoutes.GET("/getUsers", server.getUsers)
+	userRoutes.POST("/createUser", server.createAccount)
+	userRoutes.DELETE("/deleteUser", server.deleteUser)
 }
 
-
-func setTestRoute(router *gin.Engine) {
+func(server *Server) setTestRoute(router *gin.Engine) {
 	testRoutes := router.Group("/test")
 
-	testRoutes.GET("/getTestHello", controllers.GetTestHello)
-	testRoutes.GET("/getTest",controllers.GetTest)
-	testRoutes.POST("/makeTest", controllers.CreateTest)
+	testRoutes.GET("/getTestHello", server.getTestHello)
+	testRoutes.GET("/getTest", server.getTest)
+	testRoutes.POST("/makeTest", server.createTest)
 }
 
 func (server *Server) Start(address string) error {
