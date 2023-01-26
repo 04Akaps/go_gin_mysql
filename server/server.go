@@ -5,17 +5,21 @@ import (
 	"github.com/jjimgo/go_gin_mysql/config"
 	"github.com/jjimgo/go_gin_mysql/controllers"
 	"github.com/jjimgo/go_gin_mysql/db"
+	sqlc "github.com/jjimgo/go_gin_mysql/db/sqlc"
 )
 
 type Server struct {
 	config config.Config
 	router *gin.Engine
+	query *sqlc.Queries
 }
 
 func NewServer(config config.Config) (*Server, error) {
 	server := &Server{config : config}
 	server.setUpRouter()
-	db.MigrateDataBase()
+	query := db.MigrateDataBase()
+
+	server.query = query
 
 	return server, nil
 }
