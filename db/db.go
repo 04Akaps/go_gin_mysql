@@ -8,9 +8,10 @@ import (
 	"github.com/golang-migrate/migrate/v4"
 	"github.com/golang-migrate/migrate/v4/database/mysql"
     _ "github.com/golang-migrate/migrate/v4/source/file"
+	sqlc "github.com/jjimgo/go_gin_mysql/db/sqlc"
 )
 
-func MigrateDataBase() {
+func MigrateDataBase() *sqlc.Queries  {
 	db, err := sql.Open("mysql", "root:root@tcp(localhost:3306)/userDB?multiStatements=true")
 
 	if err != nil {
@@ -34,4 +35,7 @@ func MigrateDataBase() {
 	}
 
 	m.Steps(2)
+
+	query := sqlc.New(db)
+	return query
 }
