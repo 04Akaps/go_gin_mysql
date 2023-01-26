@@ -5,7 +5,7 @@ DB_NAME=userDB
 docker_mysql:
 	docker run --platform linux/amd64 -p 3306:3306 --env MYSQL_DATABASE=${DB_NAME} --env MYSQL_ROOT_PASSWORD=root --name ${CONTAINER_NAME} -d mysql
 
-# migrateup:
-# 	migrate -source file:./db/migration -database "${DB_URL}"
-
+sqlc:
+	sqlc generate
+	
 .PHONY: docker_mysql migrateup
