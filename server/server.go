@@ -44,10 +44,10 @@ func (server *Server)  setDiaryRoute(router *gin.Engine) {
 func (server *Server) setUserRoute(router *gin.Engine) {
 	userRoutes := router.Group("/user")
 
-	userRoutes.GET("/getUser", server.getUser)
-	userRoutes.GET("/getUsers", server.getUsers)
+	userRoutes.GET("/getUser/:email", server.getUser)
+	userRoutes.GET("/getAllUsers", server.getAllUsers)
 	userRoutes.POST("/createUser", server.createAccount)
-	userRoutes.DELETE("/deleteUser", server.deleteUser)
+	userRoutes.DELETE("/deleteUser/:email", server.deleteUser)
 }
 
 func(server *Server) setTestRoute(router *gin.Engine) {

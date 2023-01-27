@@ -17,3 +17,6 @@ migrate create -ext sql -dir ./db -seq create_table
 1. envSample.env파일을 app.env로 수정 후 시작
 
 
+# API
+
+내부 API 폴더 확인

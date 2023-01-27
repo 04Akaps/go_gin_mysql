@@ -2,6 +2,7 @@ package server
 
 
 import (
+	"database/sql"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -9,21 +10,11 @@ import (
 	sqlc "github.com/jjimgo/go_gin_mysql/db/sqlc"
 )
 
-// `email` varchar(255) UNIQUE PRIMARY KEY,
-// `gender` varchar(255) NOT NULL,
-// `age` int NOT NULL,
-// `country` int NOT NULL,
-// `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-
 type createUserRequest struct {
 	Email	string 	`json:"email" binding:"required,email"`
 	Gender	string 	`json:"gender" binding:"required,oneof=Man Woman"`
 	Age		int64	`json:"age" binding:"required,min=1"`
 	Country	string 	`json:"country" binding:"required"`
-}
-
-type createUserREsponse struct {
-
 }
 
 func (server *Server) createAccount(ctx *gin.Context) {
@@ -41,7 +32,7 @@ func (server *Server) createAccount(ctx *gin.Context) {
 		Country : req.Country,
 	}
 
-	result, err := server.query.CreateUser(ctx, arg)
+	_, err := server.query.CreateUser(ctx, arg)
 
 	if err != nil {
 		if pqErr, ok := err.(*pq.Error); ok {
@@ -55,19 +46,74 @@ func (server *Server) createAccount(ctx *gin.Context) {
 		return
 	}
 
-	ctx.JSON(http.StatusOK, result)
+	ctx.JSON(http.StatusOK, arg)
+}
+
+type getDeleteUserRequest struct {
+	Email 	string 	`uri:"email" binding:"required,min=1"`
 }
 
 func (server *Server) getUser(ctx *gin.Context) {
+	var req getDeleteUserRequest
 
+	if err := ctx.ShouldBindUri(&req); err != nil {
+		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return;
+	}
+
+	user, err := server.query.GetUser(ctx, req.Email)
+
+	if err != nil {
+		if err == sql.ErrNoRows {
+			// DB에 없다면
+			ctx.JSON(http.StatusNotFound, errorResponse(err))
+			return
+		}
+
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		return
+	}
+
+	ctx.JSON(http.StatusOK, user)
 }
 
+func (server *Server) getAllUsers(ctx *gin.Context) {
+	user, err := server.query.GetAllUsers(ctx)
 
-func (server *Server) getUsers(ctx *gin.Context) {
+	if err != nil {
+		if err == sql.ErrNoRows {
+			// DB에 없다면
+			ctx.JSON(http.StatusNotFound, errorResponse(err))
+			return
+		}
 
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		return
+	}
+
+	ctx.JSON(http.StatusOK, user)
 }
-
 
 func (server *Server) deleteUser(ctx *gin.Context) {
+	var req getDeleteUserRequest
 
+	if err := ctx.ShouldBindUri(&req); err != nil {
+		ctx.JSON(http.StatusBadRequest, errorResponse(err))
+		return;
+	}
+
+	err := server.query.DeleteUser(ctx, req.Email)
+
+	if err != nil {
+		if err == sql.ErrNoRows {
+			// DB에 없다면
+			ctx.JSON(http.StatusNotFound, errorResponse(err))
+			return
+		}
+
+		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
+		return
+	}
+	
+	ctx.JSON(http.StatusOK, "Deleted Email is : " + req.Email)
 }

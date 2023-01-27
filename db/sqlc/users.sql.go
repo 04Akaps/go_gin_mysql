@@ -22,7 +22,7 @@ INSERT INTO users (
 type CreateUserParams struct {
 	Email   string `json:"email"`
 	Gender  string `json:"gender"`
-	Age     int64 `json:"age"`
+	Age     int64  `json:"age"`
 	Country string `json:"country"`
 }
 
@@ -43,6 +43,39 @@ WHERE email = ?
 func (q *Queries) DeleteUser(ctx context.Context, email string) error {
 	_, err := q.db.ExecContext(ctx, deleteUser, email)
 	return err
+}
+
+const getAllUsers = `-- name: GetAllUsers :many
+SELECT email, gender, age, country, created_at FROM users
+`
+
+func (q *Queries) GetAllUsers(ctx context.Context) ([]User, error) {
+	rows, err := q.db.QueryContext(ctx, getAllUsers)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	items := []User{}
+	for rows.Next() {
+		var i User
+		if err := rows.Scan(
+			&i.Email,
+			&i.Gender,
+			&i.Age,
+			&i.Country,
+			&i.CreatedAt,
+		); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
 }
 
 const getUser = `-- name: GetUser :one

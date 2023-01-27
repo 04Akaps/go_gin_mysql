@@ -12,7 +12,7 @@ import (
 )
 
 func MigrateDataBase() *sqlc.Queries  {
-	db, err := sql.Open("mysql", "root:root@tcp(localhost:3306)/userDB?multiStatements=true")
+	db, err := sql.Open("mysql", "root:root@tcp(localhost:3306)/userDB?multiStatements=true&parseTime=true")
 
 	if err != nil {
 		log.Fatal("sql Open Error : ",err)
@@ -41,7 +41,7 @@ func MigrateDataBase() *sqlc.Queries  {
 	}
 
 	// for delete database
-	// if err = m.Close(); err != nil {
+	// if err := m.Down(); err != nil {
 	// 	log.Fatal("miration Drop Failed : ", err)
 	// }
 
