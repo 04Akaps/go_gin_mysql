@@ -24,8 +24,14 @@ func MigrateDataBase() *sqlc.Queries  {
 		log.Fatal("driver instance : Error",err)
 	}
 
+	// same Code
+	// m, err := migrate.New(
+	// 	"file://db/migration",
+	// 	"mysql://root:root@tcp(localhost:3306)/userDB?multiStatements=true",
+	// )
+
 	m, err := migrate.NewWithDatabaseInstance(
-		"file://./db/migration",
+		"file://db/migration",
 		"mysql",
 		driver,
 	)
@@ -33,6 +39,11 @@ func MigrateDataBase() *sqlc.Queries  {
 	if err != nil {
 		log.Fatal("db instance Error : ",err)
 	}
+
+	// for delete database
+	// if err = m.Close(); err != nil {
+	// 	log.Fatal("miration Drop Failed : ", err)
+	// }
 
 	m.Steps(2)
 

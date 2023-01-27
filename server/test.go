@@ -4,7 +4,6 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	e "github.com/jjimgo/go_gin_mysql/err"
 )
 
 type Test struct {
@@ -21,7 +20,7 @@ var newTestArea = []Test{
 func (server *Server) createTest(ctx *gin.Context) {
 	var newTest Test
 	if err := ctx.ShouldBindJSON(&newTest); err != nil {
-		ctx.JSON(http.StatusBadRequest, e.ErrorResponse(err))
+		ctx.JSON(http.StatusBadRequest, errorResponse(err))
 	}
 
 	newTestArea = append(newTestArea, newTest);

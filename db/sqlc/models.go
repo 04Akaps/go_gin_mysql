@@ -8,7 +8,7 @@ import (
 )
 
 type Diary struct {
-	ID        int32          `json:"id"`
+	ID        int64          `json:"id"`
 	Content   sql.NullString `json:"content"`
 	UserEmail string         `json:"user_email"`
 	CreatedAt time.Time      `json:"created_at"`
@@ -17,7 +17,7 @@ type Diary struct {
 type User struct {
 	Email     string    `json:"email"`
 	Gender    string    `json:"gender"`
-	Age       int32     `json:"age"`
-	Country   int32     `json:"country"`
+	Age       int64     `json:"age"`
+	Country   string    `json:"country"`
 	CreatedAt time.Time `json:"created_at"`
 }

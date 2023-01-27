@@ -7,5 +7,8 @@ docker_mysql:
 
 sqlc:
 	sqlc generate
+
+start:
+	go run main.go
 	
-.PHONY: docker_mysql migrateup
+.PHONY: docker_mysql start sqlc
