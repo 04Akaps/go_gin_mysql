@@ -1,0 +1,59 @@
+definitions:
+  db.CreateUserParams:
+    properties:
+      age:
+        type: integer
+      country:
+        type: string
+      email:
+        type: string
+      gender:
+        type: string
+    type: object
+  server.createUserRequest:
+    properties:
+      age:
+        minimum: 1
+        type: integer
+      country:
+        type: string
+      email:
+        type: string
+      gender:
+        enum:
+        - Man|Woman
+        type: string
+    required:
+    - age
+    - country
+    - email
+    - gender
+    type: object
+info:
+  contact: {}
+paths:
+  /createUser:
+    post:
+      description: do Create New Account
+      parameters:
+      - description: Create User
+        in: body
+        name: tags
+        required: true
+        schema:
+          $ref: '#/definitions/server.createUserRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/db.CreateUserParams'
+        "404":
+          description: Not Found
+          schema:
+            type: string
+      summary: create New Account
+      tags:
+      - user
+swagger: "2.0"

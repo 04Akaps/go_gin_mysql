@@ -5,6 +5,10 @@ import (
 	"github.com/jjimgo/go_gin_mysql/config"
 	"github.com/jjimgo/go_gin_mysql/db"
 	sqlc "github.com/jjimgo/go_gin_mysql/db/sqlc"
+
+	swaggerfiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
+	docs "github.com/jjimgo/go_gin_mysql/docs"
 )
 
 type Server struct {
@@ -29,9 +33,21 @@ func (server *Server) setUpRouter() {
 	server.setTestRoute(router) // sample Test Router
 	server.setUserRoute(router) // sample User Router
 	server.setDiaryRoute(router) // sample Tx Router
+	server.setSwaggerRoute(router) //swagger Router
 
 	server.router = router
 }
+
+func (server *Server)  setSwaggerRoute(router *gin.Engine) {
+	docs.SwaggerInfo.Title = "gin + mysql Swagger"
+	docs.SwaggerInfo.Description = "User & Diary Simple API"
+	docs.SwaggerInfo.Version = "1.0"
+	docs.SwaggerInfo.Host = "localhost:8080"
+	docs.SwaggerInfo.BasePath = ""
+	router.GET("/swagger/*any",ginSwagger.WrapHandler(swaggerfiles.Handler))
+}
+
+
 
 func (server *Server)  setDiaryRoute(router *gin.Engine) {
 	diary := router.Group("/diary")

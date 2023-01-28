@@ -9,6 +9,6 @@ sqlc:
 	sqlc generate
 
 start:
-	go run main.go
+	swag init | go run main.go
 	
 .PHONY: docker_mysql start sqlc

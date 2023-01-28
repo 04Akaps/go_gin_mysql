@@ -9,14 +9,25 @@ import (
 	"github.com/lib/pq"
 	sqlc "github.com/jjimgo/go_gin_mysql/db/sqlc"
 )
+// @BasePath /user
 
 type createUserRequest struct {
 	Email	string 	`json:"email" binding:"required,email"`
-	Gender	string 	`json:"gender" binding:"required,oneof=Man Woman"`
+	Gender	string 	`json:"gender" binding:"required,oneof=Man|Woman"`
 	Age		int64	`json:"age" binding:"required,min=1"`
 	Country	string 	`json:"country" binding:"required"`
 }
 
+// createAccount godoc
+// @Summary create New Account
+// @Schemes
+// @Description do Create New Account
+// @Tags user
+// @Produce json
+// @Param tags body createUserRequest true "Create User"
+// @Success 200 {object} sqlc.CreateUserParams
+// @Failure 404 {string} error
+// @Router /createUser [post]
 func (server *Server) createAccount(ctx *gin.Context) {
 	var req createUserRequest
 	// check key is existed

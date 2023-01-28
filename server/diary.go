@@ -155,6 +155,8 @@ func (server *Server) deleteDiary(ctx *gin.Context) {
 		ctx.JSON(http.StatusInternalServerError, errorResponse(err))
 		return
 	}
+
+	ctx.Header("Content-Type", "application/json")
 	
 	ctx.JSON(http.StatusOK, strconv.Itoa(int(req.ID))  + "is Deleted")
 }
