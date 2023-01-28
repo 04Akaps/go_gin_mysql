@@ -45,7 +45,7 @@ definitions:
 info:
   contact: {}
 paths:
-  /createUser:
+  /user/createUser:
     post:
       description: do Create New Account
       parameters:
@@ -69,11 +69,12 @@ paths:
       summary: create New Account
       tags:
       - user
-  /getUser:
+  /user/getUser/{email}:
     get:
       description: get User
       parameters:
-      - in: query
+      - description: getUser
+        in: path
         name: email
         required: true
         type: string

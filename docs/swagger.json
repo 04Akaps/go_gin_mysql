@@ -4,7 +4,7 @@
         "contact": {}
     },
     "paths": {
-        "/createUser": {
+        "/user/createUser": {
             "post": {
                 "description": "do Create New Account",
                 "produces": [
@@ -41,7 +41,7 @@
                 }
             }
         },
-        "/getUser": {
+        "/user/getUser/{email}": {
             "get": {
                 "description": "get User",
                 "produces": [
@@ -54,8 +54,9 @@
                 "parameters": [
                     {
                         "type": "string",
+                        "description": "getUser",
                         "name": "email",
-                        "in": "query",
+                        "in": "path",
                         "required": true
                     }
                 ],

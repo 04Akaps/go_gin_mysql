@@ -1,6 +1,9 @@
 package server
 
 import (
+	"os"
+	"io"
+
 	"github.com/gin-gonic/gin"
 	"github.com/jjimgo/go_gin_mysql/config"
 	"github.com/jjimgo/go_gin_mysql/db"
@@ -34,6 +37,9 @@ func (server *Server) setUpRouter() {
 	server.setUserRoute(router) // sample User Router
 	server.setDiaryRoute(router) // sample Tx Router
 	server.setSwaggerRoute(router) //swagger Router
+
+	f, _ := os.Create("gin.log")
+	gin.DefaultWriter = io.MultiWriter(f)
 
 	server.router = router
 }

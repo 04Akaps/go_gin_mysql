@@ -9,7 +9,6 @@ import (
 	"github.com/lib/pq"
 	sqlc "github.com/jjimgo/go_gin_mysql/db/sqlc"
 )
-// @BasePath /user
 
 type createUserRequest struct {
 	Email	string 	`json:"email" binding:"required,email"`
@@ -26,7 +25,7 @@ type createUserRequest struct {
 // @Param tags body createUserRequest true "Create User"
 // @Success 200 {object} sqlc.CreateUserParams
 // @Failure 404 {string} error
-// @Router /createUser [post]
+// @Router /user/createUser [post]
 func (server *Server) createAccount(ctx *gin.Context) {
 	var req createUserRequest
 	// check key is existed
@@ -68,10 +67,10 @@ type getDeleteUserRequest struct {
 // @Description get User
 // @Tags user
 // @Produce json
-// @Param tags query getDeleteUserRequest true "getUser"
+// @Param email path string true "getUser"
 // @Success 200 {object} sqlc.User
 // @Failure 404 {string} error
-// @Router /getUser [get]
+// @Router /user/getUser/{email} [get]
 func (server *Server) getUser(ctx *gin.Context) {
 	var req getDeleteUserRequest
 

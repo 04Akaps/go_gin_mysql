@@ -15,7 +15,7 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/createUser": {
+        "/user/createUser": {
             "post": {
                 "description": "do Create New Account",
                 "produces": [
@@ -52,7 +52,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/getUser": {
+        "/user/getUser/{email}": {
             "get": {
                 "description": "get User",
                 "produces": [
@@ -65,8 +65,9 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
+                        "description": "getUser",
                         "name": "email",
-                        "in": "query",
+                        "in": "path",
                         "required": true
                     }
                 ],
