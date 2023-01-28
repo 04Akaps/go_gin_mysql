@@ -2,6 +2,7 @@
 
 go + gin + mysql 
 
+로그 파일 생성 및 swagger를 구성하며, makefile을 통한 docker에서 mysql실행이 담겨 있습니다.
 
 # module
 
