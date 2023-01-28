@@ -3,23 +3,23 @@ INSERT INTO diary (
     content,
     user_email
 ) VALUES (
-    $1, $2
+    ?, ?
 );
 
 -- name: GetDiary :one
 SELECT * FROM diary
-WHERE id = $1 LIMIT 1;
+WHERE id = ? LIMIT 1;
 
--- name GetDiarys :many
+-- name: GetDiarys :many
 SELECT * FROM diary
-WHERE user_email = $1
+WHERE user_email = ?
 ORDER BY id;
 
--- name UpdateDiary :one
+-- name: UpdateDiary :exec
 UPDATE diary
-SET content = $1
-WHERE id = $2;
+SET content = ?
+WHERE id = ?;
 
--- name DeleteDiary :exec
+-- name: DeleteDiary :exec
 DELETE FROM diary
-WHERE id = $1;
+WHERE id = ?;

@@ -3,15 +3,14 @@
 package db
 
 import (
-	"database/sql"
 	"time"
 )
 
 type Diary struct {
-	ID        int64          `json:"id"`
-	Content   sql.NullString `json:"content"`
-	UserEmail string         `json:"user_email"`
-	CreatedAt time.Time      `json:"created_at"`
+	ID        int64     `json:"id"`
+	Content   string    `json:"content"`
+	UserEmail string    `json:"user_email"`
+	CreatedAt time.Time `json:"created_at"`
 }
 
 type User struct {

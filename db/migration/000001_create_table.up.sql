@@ -8,7 +8,7 @@ CREATE TABLE `users` (
 
 CREATE TABLE `diary` (
   `id` BIGINT PRIMARY KEY AUTO_INCREMENT,
-  `content` varchar(255),
+  `content` varchar(255) NOT NULL,
   `user_email` varchar(255) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );

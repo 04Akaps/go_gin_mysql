@@ -36,11 +36,11 @@ func (server *Server) setUpRouter() {
 func (server *Server)  setDiaryRoute(router *gin.Engine) {
 	diary := router.Group("/diary")
 
-	diary.GET("/getDiary", server.getDiary)
-	diary.GET("/getDiarys", server.getDiarys)
-	diary.POST("/createDiary", server.creatediary)
-	diary.DELETE("/deleteDiary", server.deleteDiary)
-	diary.PUT("/deleteDiary", server.updateDiary)
+	diary.GET("/getDiary/:id", server.getDiary)
+	diary.GET("/getDiarys/:email", server.getDiarys)
+	diary.POST("/createDiary", server.createDiary)
+	diary.DELETE("/deleteDiary/:id", server.deleteDiary)
+	diary.PUT("/updateDiary", server.updateDiary)
 }
 
 func (server *Server) setUserRoute(router *gin.Engine) {

@@ -50,7 +50,7 @@ func (server *Server) createAccount(ctx *gin.Context) {
 }
 
 type getDeleteUserRequest struct {
-	Email 	string 	`uri:"email" binding:"required,min=1"`
+	Email 	string 	`uri:"email" binding:"required"`
 }
 
 func (server *Server) getUser(ctx *gin.Context) {
