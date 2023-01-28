@@ -1,0 +1,24 @@
+[GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
+
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
+
+[GIN-debug] GET    /test/getTestHello        --> github.com/jjimgo/go_gin_mysql/server.(*Server).getTestHello-fm (3 handlers)
+[GIN-debug] GET    /test/getTest             --> github.com/jjimgo/go_gin_mysql/server.(*Server).getTest-fm (3 handlers)
+[GIN-debug] POST   /test/makeTest            --> github.com/jjimgo/go_gin_mysql/server.(*Server).createTest-fm (3 handlers)
+[GIN-debug] GET    /user/getUser/:email      --> github.com/jjimgo/go_gin_mysql/server.(*Server).getUser-fm (3 handlers)
+[GIN-debug] GET    /user/getAllUsers         --> github.com/jjimgo/go_gin_mysql/server.(*Server).getAllUsers-fm (3 handlers)
+[GIN-debug] POST   /user/createUser          --> github.com/jjimgo/go_gin_mysql/server.(*Server).createAccount-fm (3 handlers)
+[GIN-debug] DELETE /user/deleteUser/:email   --> github.com/jjimgo/go_gin_mysql/server.(*Server).deleteUser-fm (3 handlers)
+[GIN-debug] GET    /diary/getDiary/:id       --> github.com/jjimgo/go_gin_mysql/server.(*Server).getDiary-fm (3 handlers)
+[GIN-debug] GET    /diary/getDiarys/:email   --> github.com/jjimgo/go_gin_mysql/server.(*Server).getDiarys-fm (3 handlers)
+[GIN-debug] POST   /diary/createDiary        --> github.com/jjimgo/go_gin_mysql/server.(*Server).createDiary-fm (3 handlers)
+[GIN-debug] DELETE /diary/deleteDiary/:id    --> github.com/jjimgo/go_gin_mysql/server.(*Server).deleteDiary-fm (3 handlers)
+[GIN-debug] PUT    /diary/updateDiary        --> github.com/jjimgo/go_gin_mysql/server.(*Server).updateDiary-fm (3 handlers)
+[GIN-debug] GET    /swagger/*any             --> github.com/swaggo/gin-swagger.CustomWrapHandler.func1 (3 handlers)
+[GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
+Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
+[GIN-debug] Listening and serving HTTP on 127.0.0.1:8080
+[GIN] 2023/01/28 - 15:46:50 | 200 |   17.339541ms |       127.0.0.1 | GET      "/user/getUser/sdl155@naver.com"
+[GIN] 2023/01/28 - 15:46:51 | 200 |    8.052292ms |       127.0.0.1 | GET      "/user/getUser/sdl155@naver.com"

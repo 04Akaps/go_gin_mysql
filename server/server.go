@@ -1,8 +1,6 @@
 package server
 
 import (
-	"os"
-	"io"
 
 	"github.com/gin-gonic/gin"
 	"github.com/jjimgo/go_gin_mysql/config"
@@ -38,9 +36,6 @@ func (server *Server) setUpRouter() {
 	server.setDiaryRoute(router) // sample Tx Router
 	server.setSwaggerRoute(router) //swagger Router
 
-	f, _ := os.Create("gin.log")
-	gin.DefaultWriter = io.MultiWriter(f)
-
 	server.router = router
 }
 
@@ -67,6 +62,7 @@ func (server *Server)  setDiaryRoute(router *gin.Engine) {
 
 func (server *Server) setUserRoute(router *gin.Engine) {
 	userRoutes := router.Group("/user")
+
 
 	userRoutes.GET("/getUser/:email", server.getUser)
 	userRoutes.GET("/getAllUsers", server.getAllUsers)
