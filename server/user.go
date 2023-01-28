@@ -18,7 +18,6 @@ type createUserRequest struct {
 	Country	string 	`json:"country" binding:"required"`
 }
 
-// createAccount godoc
 // @Summary create New Account
 // @Schemes
 // @Description do Create New Account
@@ -64,6 +63,15 @@ type getDeleteUserRequest struct {
 	Email 	string 	`uri:"email" binding:"required"`
 }
 
+// @Summary getUser
+// @Schemes
+// @Description get User
+// @Tags user
+// @Produce json
+// @Param tags query getDeleteUserRequest true "getUser"
+// @Success 200 {object} sqlc.User
+// @Failure 404 {string} error
+// @Router /getUser [get]
 func (server *Server) getUser(ctx *gin.Context) {
 	var req getDeleteUserRequest
 

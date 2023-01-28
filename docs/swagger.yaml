@@ -10,6 +10,19 @@ definitions:
       gender:
         type: string
     type: object
+  db.User:
+    properties:
+      age:
+        type: integer
+      country:
+        type: string
+      created_at:
+        type: string
+      email:
+        type: string
+      gender:
+        type: string
+    type: object
   server.createUserRequest:
     properties:
       age:
@@ -54,6 +67,28 @@ paths:
           schema:
             type: string
       summary: create New Account
+      tags:
+      - user
+  /getUser:
+    get:
+      description: get User
+      parameters:
+      - in: query
+        name: email
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/db.User'
+        "404":
+          description: Not Found
+          schema:
+            type: string
+      summary: getUser
       tags:
       - user
 swagger: "2.0"
